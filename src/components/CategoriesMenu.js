@@ -1,33 +1,22 @@
 import React from 'react';
-import { getCategories } from '../services/api';
+import PropTypes from 'prop-types';
 
 class CategoriesMenu extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      categories: [],
-    };
-  }
-
-  async componentDidMount() {
-    const categories = await getCategories();
-    this.setState({ categories });
-  }
-
   render() {
-    const { categories } = this.state;
+    const { name, click } = this.props;
     return (
       <ul>
-        {categories.map(({ name, id }) => (
-          <li
-            key={ id }
-          >
-            <button data-testid="category" type="button">{name}</button>
-          </li>
-        ))}
+        <li>
+          <button type="button" onClick={ click } data-testid="category">{ name }</button>
+        </li>
       </ul>
     );
   }
 }
+
+CategoriesMenu.propTypes = {
+  name: PropTypes.string.isRequired,
+  click: PropTypes.func.isRequired,
+};
 
 export default CategoriesMenu;
