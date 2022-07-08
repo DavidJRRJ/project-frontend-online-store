@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import CategoriesMenu from './CategoriesMenu';
-import { getProductsFromCategoryAndQuery } from '../services/api';
+import { getProductsFromCategoryAndQuery, getCategories } from '../services/api';
+import ProductCard from './ProductCard';
 
 class Home extends React.Component {
   constructor() {
@@ -9,7 +10,14 @@ class Home extends React.Component {
     this.state = {
       queryInput: '',
       results: [],
+      categories: [],
     };
+  }
+
+  async componentDidMount() {
+    const categories = await getCategories();
+    this.setState({ categories });
+    console.log(categories.map((p) => p.id));
   }
 
   handleChange = ({ target }) => {
@@ -28,8 +36,18 @@ class Home extends React.Component {
     });
   }
 
+  handleClickMenu = async (id) => {
+    // const { categories } = this.state;
+    // const categoriesId = categories.map((p) => p.id);
+    const result = await getProductsFromCategoryAndQuery(id, '');
+    // console.log(result.results);
+    this.setState({
+      results: result.results,
+    });
+  }
+
   render() {
-    const { results } = this.state;
+    const { results, categories } = this.state;
     return (
       <div>
         <input type="text" data-testid="query-input" onChange={ this.handleChange } />
@@ -45,13 +63,18 @@ class Home extends React.Component {
           Digite algum termo de pesquisa ou escolha uma categoria.
         </p>
         <Link to="/cart" data-testid="shopping-cart-button">Cart</Link>
-        <CategoriesMenu />
+        {categories.map(({ id, name }) => (<CategoriesMenu
+          key={ id }
+          name={ name }
+          click={ () => this.handleClickMenu(id) }
+        />))}
         {results.map(({ title, price, thumbnail, id }) => (
-          <div key={ id } data-testid="product">
-            <h3>{title}</h3>
-            <img src={ thumbnail } alt={ title } />
-            <p>{price}</p>
-          </div>
+          <ProductCard
+            key={ id }
+            title={ title }
+            price={ price }
+            thumb={ thumbnail }
+          />
         ))}
       </div>
     );
