@@ -22,7 +22,7 @@ class Home extends React.Component {
 
   handleClick = async () => {
     const { queryInput } = this.state;
-    const result = await getProductsFromCategoryAndQuery({ query: queryInput });
+    const result = await getProductsFromCategoryAndQuery('', queryInput);
     this.setState({
       results: result.results,
     });
