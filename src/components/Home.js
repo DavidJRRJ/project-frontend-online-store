@@ -40,7 +40,7 @@ class Home extends React.Component {
     // const { categories } = this.state;
     // const categoriesId = categories.map((p) => p.id);
     const result = await getProductsFromCategoryAndQuery(id, '');
-    // console.log(result.results);
+    console.log(result.results);
     this.setState({
       results: result.results,
     });
@@ -74,6 +74,7 @@ class Home extends React.Component {
             title={ title }
             price={ price }
             thumb={ thumbnail }
+            id={ id }
           />
         ))}
       </div>
