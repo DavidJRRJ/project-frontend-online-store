@@ -3,11 +3,6 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 class ProductCard extends React.Component {
-  // handleStorage() {
-  //   const { id } = this.props;
-  //   localStorage.setItem('productId', `${id}`);
-  // }
-
   render() {
     const { title, thumb, price, id } = this.props;
     return (

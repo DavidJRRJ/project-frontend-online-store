@@ -17,7 +17,7 @@ class Home extends React.Component {
   async componentDidMount() {
     const categories = await getCategories();
     this.setState({ categories });
-    console.log(categories.map((p) => p.id));
+    // console.log(categories.map((p) => p.id));
   }
 
   handleChange = ({ target }) => {
@@ -40,7 +40,7 @@ class Home extends React.Component {
     // const { categories } = this.state;
     // const categoriesId = categories.map((p) => p.id);
     const result = await getProductsFromCategoryAndQuery(id, '');
-    console.log(result.results);
+    // console.log(result.results);
     this.setState({
       results: result.results,
     });
