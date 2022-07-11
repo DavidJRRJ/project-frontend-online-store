@@ -45,7 +45,7 @@ class Cart extends React.Component {
           data-testid="product-increase-quantity"
           onClick={ this.handleAdd }
         >
-          add
+          addd
         </button>
         <button
           type="button"
