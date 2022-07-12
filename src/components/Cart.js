@@ -16,7 +16,7 @@ class Cart extends React.Component {
     console.log(cartId);
     // const data = await fetch(`https://api.mercadolibre.com/items/${cartId.id}`);
     // const result = await data.json();
-    this.setState({ product: cartId }, () => console.log(this.state.product));
+    this.setState({ product: cartId });
     // console.log(product[0]);
   }
 
