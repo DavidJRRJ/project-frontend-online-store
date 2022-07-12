@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import Comments from './Comments';
 
 class ProductDetails extends React.Component {
   constructor() {
@@ -11,11 +12,15 @@ class ProductDetails extends React.Component {
   }
 
   async componentDidMount() {
-    const { match: { params: { id } } } = this.props;
+    const {
+      match: {
+        params: { id },
+      },
+    } = this.props;
     const data = await fetch(`https://api.mercadolibre.com/items/${id}`);
     const result = await data.json();
     this.setState({ product: result });
-    console.log(result);
+    // console.log(result);
   }
 
   render() {
@@ -23,7 +28,9 @@ class ProductDetails extends React.Component {
     const { title, price, thumbnail, id } = product;
     return (
       <div data-testid="product-detail-name">
-        <Link to="/cart" data-testid="shopping-cart-button">Cart</Link>
+        <Link to="/cart" data-testid="shopping-cart-button">
+          Cart
+        </Link>
         <h3>{title}</h3>
         <p>{price}</p>
         <img src={ thumbnail } alt={ title } />
@@ -41,6 +48,7 @@ class ProductDetails extends React.Component {
         >
           Adicionar ao Carrinho
         </button>
+        <Comments />
       </div>
     );
   }
