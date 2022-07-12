@@ -1,4 +1,5 @@
 import React from 'react';
+import FormCart from './FormCart';
 import ProductCardCart from './ProductCardCart';
 
 class Cart extends React.Component {
@@ -45,6 +46,7 @@ class Cart extends React.Component {
           : product.map((productStored) => (
             <ProductCardCart key={ productStored.id } product={ productStored } />
           ))}
+        <FormCart />
       </div>
     );
   }
