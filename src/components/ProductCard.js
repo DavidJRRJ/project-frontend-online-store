@@ -15,7 +15,14 @@ class ProductCard extends React.Component {
         <button
           type="button"
           data-testid="product-add-to-cart"
-          onClick={ () => localStorage.setItem('productId', `${id}`) }
+          onClick={ () => {
+            const cartID = JSON.parse(localStorage.getItem('cart') || '[]');
+            cartID.push({
+              id,
+              title,
+            });
+            localStorage.setItem('cart', JSON.stringify(cartID));
+          } }
         >
           Adicionar ao Carrinho
         </button>

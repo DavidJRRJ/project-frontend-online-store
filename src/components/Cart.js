@@ -1,4 +1,5 @@
 import React from 'react';
+import ProductCardCart from './ProductCardCart';
 
 class Cart extends React.Component {
   constructor() {
@@ -10,11 +11,13 @@ class Cart extends React.Component {
   }
 
   async componentDidMount() {
-    const idd = localStorage.getItem('productId');
-    const data = await fetch(`https://api.mercadolibre.com/items/${idd}`);
-    const result = await data.json();
-    this.setState({ product: result });
-    // console.log(result);
+    // const { product } = this.state;
+    const cartId = JSON.parse(localStorage.getItem('cart'));
+    console.log(cartId);
+    // const data = await fetch(`https://api.mercadolibre.com/items/${cartId.id}`);
+    // const result = await data.json();
+    this.setState({ product: cartId }, () => console.log(this.state.product));
+    // console.log(product[0]);
   }
 
   handleAdd = () => {
@@ -33,27 +36,15 @@ class Cart extends React.Component {
   }
 
   render() {
-    const { product, counter } = this.state;
-    const { title } = product;
+    const { product } = this.state;
+    // const { title } = product;
     return (
       <div>
-        <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>
-        <p data-testid="shopping-cart-product-name">{title}</p>
-        <p data-testid="shopping-cart-product-quantity">{Number(counter)}</p>
-        <button
-          type="button"
-          data-testid="product-increase-quantity"
-          onClick={ this.handleAdd }
-        >
-          addd
-        </button>
-        <button
-          type="button"
-          data-testid="product-decrease-quantity"
-          onClick={ this.handleRem }
-        >
-          rem
-        </button>
+        {!product
+          ? <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>
+          : product.map((productStored) => (
+            <ProductCardCart key={ productStored.id } product={ productStored } />
+          ))}
       </div>
     );
   }
