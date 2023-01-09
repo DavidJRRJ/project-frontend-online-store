@@ -43,10 +43,4 @@ Neste projeto, foi verificado se fui capaz de:
 - Inicialize o projeto:
   - `npm start` (uma nova página deve abrir no seu navegador com um texto simples)
 
-## Executando Testes
 
-* Para rodar todos os testes:
-
-  ```
-    npm test
-  ```
